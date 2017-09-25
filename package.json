@@ -11,6 +11,7 @@
     "tsc": "tsc"
   },
   "dependencies": {
+    "@types/chai": "^4.0.4",
     "@types/node": "7.0.22",
     "nodemon": "1.11.0"
   },
