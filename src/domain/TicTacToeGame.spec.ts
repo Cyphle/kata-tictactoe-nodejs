@@ -35,4 +35,40 @@ describe('Tic tac toe game', () => {
 
     expect(game.getWinner()).to.equal('X');
   });
+
+  it('should have X wins in column with board of 3x3', function () {
+    let game = new TicTacToeGame(3, 3);
+
+    game.play('X', { row: 0, column: 0 });
+    game.play('O', { row: 1, column: 1 });
+    game.play('X', { row: 1, column: 0 });
+    game.play('O', { row: 1, column: 2 });
+    game.play('X', { row: 2, column: 0 });
+
+    expect(game.getWinner()).to.equal('X');
+  });
+
+  it('should have X wins in row with board of 3x3', function () {
+    let game = new TicTacToeGame(3, 3);
+
+    game.play('X', { row: 0, column: 0 });
+    game.play('O', { row: 1, column: 1 });
+    game.play('X', { row: 0, column: 1 });
+    game.play('O', { row: 1, column: 2 });
+    game.play('X', { row: 0, column: 2 });
+
+    expect(game.getWinner()).to.equal('X');
+  });
+
+  it('should have X wins in diagonal with board of 3x3', function () {
+    let game = new TicTacToeGame(3, 3);
+
+    game.play('X', { row: 0, column: 0 });
+    game.play('O', { row: 1, column: 0 });
+    game.play('X', { row: 1, column: 1 });
+    game.play('O', { row: 1, column: 2 });
+    game.play('X', { row: 2, column: 2 });
+
+    expect(game.getWinner()).to.equal('X');
+  });
 });

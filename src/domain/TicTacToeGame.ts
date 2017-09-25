@@ -24,13 +24,9 @@ export default class TicTacToeGame {
   }
 
   private findWinner() {
-    let b = this.isRowWinner('X');
-    // console.log(b);
-    let b2 = this.isColumnWinner('X');
-    // console.log(b2);
-    if (b2 || b)
+    if (this.isColumnWinner('X') || this.isRowWinner('X') || this.isDiagonalWinner('X'))
       return 'X';
-    else if (this.isColumnWinner('O') || this.isRowWinner('O'))
+    else if (this.isColumnWinner('O') || this.isRowWinner('O') || this.isDiagonalWinner('O'))
       return 'O';
     else
       return 'Draw';
@@ -39,7 +35,7 @@ export default class TicTacToeGame {
   private isColumnWinner(player: string) {
     let playedByPlayer = this.board.filter(playedSquare => playedSquare.getPlayer() === player);
     for (let i = 0; i < this.columnNumber; ++i) {
-      if (playedByPlayer.filter(played => played.getColumn() == i).length == this.rowNumber) return true;
+      if (playedByPlayer.filter(played => played.getColumn() === i).length === this.rowNumber) return true;
     }
     return false;
   }
@@ -47,8 +43,24 @@ export default class TicTacToeGame {
   private isRowWinner(player: string) {
     let playedByPlayer = this.board.filter(playedSquare => playedSquare.getPlayer() === player);
     for (let i = 0; i < this.rowNumber; ++i) {
-      let filter = playedByPlayer.filter(played => played.getRow() == i);
-      if (filter.length == this.columnNumber) return true;
+      if (playedByPlayer.filter(played => played.getRow() === i).length === this.columnNumber) return true;
+    }
+    return false;
+  }
+
+  private isDiagonalWinner(player: string) {
+    if (this.rowNumber === this.columnNumber) {
+      let playedByPlayer = this.board.filter(playedSquare => playedSquare.getPlayer() === player);
+
+      let leftDiagonal = [];
+      let rightDiagonal = [];
+      for (let i = 0; i < this.rowNumber; ++i) {
+        leftDiagonal.push(playedByPlayer.filter(played => played.getRow() === i && played.getColumn() === i));
+        rightDiagonal.push(playedByPlayer.filter(played => played.getRow() === this.rowNumber - 1 - i && played.getColumn() === i));
+      }
+
+      return leftDiagonal.length === this.columnNumber || rightDiagonal.length === this.columnNumber;
+
     }
     return false;
   }
