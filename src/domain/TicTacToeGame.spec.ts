@@ -32,9 +32,7 @@ describe('TicTacToGame.ts', () => {
   it('should not be possible to play outside board', () => {
     let game = new TicTacToeGame(2, 2);
 
-    game.play('X', { row: 3, column: 0 });
-
-    expect(game.getMoves()).to.have.lengthOf(0);
+    expect(game.play('X', { row: 3, column: 0 })).to.deep.equal({ status: -1, message: 'Cannot play outside board'});
   });
 
   it('should have game won by O in row with board of 3x3 in first line', () => {
@@ -113,5 +111,11 @@ describe('TicTacToGame.ts', () => {
     game.play('O', { row: 2, column: 0 });
 
     expect(game.getWinner()).to.equal('O');
+  });
+
+  it('should not be possible to play on the same place', () => {
+    let game = new TicTacToeGame(3, 3);
+    game.play('X', { row: 0, column: 0 });
+    expect(game.play('0', { row: 0, column: 0 })).to.deep.equal({ status: -2, message: 'Cannot play. This place has already been taken'});
   });
 });
