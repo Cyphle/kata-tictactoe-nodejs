@@ -33,15 +33,10 @@ export default class TicTacToeGame {
   }
 
   private hasPlayerWon(player: string): boolean {
-    if (this.hasPlayerWonInLine(player, 0, 0)) return true;
-    if (this.hasPlayerWonInColumn(player, 0, 0)) return true;
-    if (this.hasPlayerWonInDiagonalLeftUpToRightDown(player, 0, 0)) return true;
-    if (this.hasPlayedWonInDiagonalLeftDownToRightUp(player, this.rowNumber - 1, 0)) return true;
-    // let hasWonInLine = this.hasPlayerWonInLine(player, 0, 0);
-    // let hasWonInColumn = this.hasPlayerWonInColumn(player, 0, 0);
-    // let hasWonInDiagonalLeftUpToRightDown = this.hasPlayerWonInDiagonalLeftUpToRightDown(player, 0, 0);
-    // let hasWonInDiagonalLeftDownToRightUp = this.hasPlayedWonInDiagonalLeftDownToRightUp(player, this.rowNumber - 1, 0);
-    // return hasWonInLine || hasWonInColumn || hasWonInDiagonalLeftUpToRightDown || hasWonInDiagonalLeftDownToRightUp;
+    return this.hasPlayerWonInLine(player, 0, 0)
+        || this.hasPlayerWonInColumn(player, 0, 0)
+        || this.hasPlayerWonInDiagonalLeftUpToRightDown(player, 0, 0)
+        || this.hasPlayedWonInDiagonalLeftDownToRightUp(player, this.rowNumber - 1, 0);
   }
 
   private hasPlayerWonInLine(player: string, rowNumber: number, columnNumber: number): boolean {
