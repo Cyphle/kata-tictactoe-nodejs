@@ -5,6 +5,9 @@ import TicTacToeGame from './TicTacToeGame';
 describe('TicTacToGame.ts', () => {
   it('should have game won by X with board of 1x1', () => {
     let game = new TicTacToeGame(1, 1);
+
+    game.play('X', { row: 0, column: 0 });
+
     expect(game.getWinner()).to.equal('X');
   });
 
@@ -32,5 +35,18 @@ describe('TicTacToGame.ts', () => {
     game.play('X', { row: 3, column: 0 });
 
     expect(game.getMoves()).to.have.lengthOf(0);
+  });
+
+  it('should have game won by O in row with board of 3x3 in first line', () => {
+    let game = new TicTacToeGame(2, 2);
+
+    game.play('X', { row: 1, column: 0 });
+    game.play('O', { row: 0, column: 0 });
+    game.play('X', { row: 1, column: 1 });
+    game.play('O', { row: 0, column: 1 });
+    game.play('X', { row: 2, column: 0 });
+    game.play('O', { row: 0, column: 2 });
+
+    expect(game.getWinner()).to.equal('O');
   });
 });

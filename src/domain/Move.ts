@@ -11,5 +11,15 @@ export default class Move {
     this.playedColumn = move.column;
   }
 
+  getPlayedRow(): number {
+    return this.playedRow;
+  }
 
+  getPlayedColumn(): number {
+    return this.playedColumn;
+  }
+
+  getPlayer(): string {
+    return this.player;
+  }
 }
