@@ -7,4 +7,12 @@ describe('TicTacToGame.ts', () => {
     let game = new TicTacToeGame(1, 1);
     expect(game.getWinner()).to.equal('X');
   });
+
+  it('should have game won by X in row with board of 2x1', () => {
+    let game = new TicTacToeGame(2, 1);
+
+    game.play('X', { row: 0, column: 0 });
+
+    expect(game.getWinner()).to.equal('X');
+  });
 });
