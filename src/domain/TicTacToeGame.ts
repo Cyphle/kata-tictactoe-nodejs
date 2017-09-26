@@ -42,7 +42,7 @@ export default class TicTacToeGame {
     if (move && move.getPlayer() === player) {
       return columnNumber === this.columnNumber - 1 ? true : this.hasPlayerOwnInLine(player, rowNumber, ++columnNumber);
     } else {
-      return rowNumber < this.rowNumber - 1 ? this.hasPlayerOwnInLine(player, ++rowNumber, 0) : false;
+      return rowNumber < this.rowNumber ? this.hasPlayerOwnInLine(player, ++rowNumber, 0) : false;
     }
   }
 }
