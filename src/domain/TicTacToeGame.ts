@@ -15,9 +15,9 @@ export default class TicTacToeGame {
   }
 
   getWinner(): string {
-    let hasOWon = this.hasPlayerWon('O');
-    if (hasOWon) return 'O';
-    return 'X';
+    if (this.hasPlayerWon('O')) return 'O';
+    if (this.hasPlayerWon('X')) return 'X';
+    return 'Draw';
   }
 
   play(player: string, move: { row: number; column: number }) {

@@ -118,4 +118,20 @@ describe('TicTacToGame.ts', () => {
     game.play('X', { row: 0, column: 0 });
     expect(game.play('0', { row: 0, column: 0 })).to.deep.equal({ status: -2, message: 'Cannot play. This place has already been taken'});
   });
+
+  it('should have game draw', () => {
+    let game = new TicTacToeGame(3, 3);
+
+    game.play('X', { row: 0, column: 0 });
+    game.play('O', { row: 0, column: 1 });
+    game.play('X', { row: 1, column: 0 });
+    game.play('O', { row: 1, column: 1 });
+    game.play('X', { row: 2, column: 1 });
+    game.play('O', { row: 1, column: 2 });
+    game.play('X', { row: 0, column: 2 });
+    game.play('O', { row: 2, column: 0 });
+    game.play('X', { row: 2, column: 2 });
+
+    expect(game.getWinner()).to.equal('Draw');
+  });
 });
