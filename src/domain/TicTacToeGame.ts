@@ -1,7 +1,8 @@
 'use strict';
 
 import Move from './Move';
-import { PLAY_STATUS } from "./PlayStatus";
+import { PLAY_STATUS } from './PlayStatus';
+import { PLAYERS } from './Players';
 
 export default class TicTacToeGame {
   private rowNumber: number;
@@ -15,9 +16,7 @@ export default class TicTacToeGame {
   }
 
   getWinner(): string {
-    if (this.hasPlayerWon('O')) return 'O';
-    if (this.hasPlayerWon('X')) return 'X';
-    return 'Draw';
+    return PLAYERS.find(player => this.hasPlayerWon(player.name)) ? PLAYERS.find(player => this.hasPlayerWon(player.name)).name : 'Draw';
   }
 
   play(player: string, move: { row: number; column: number }) {
