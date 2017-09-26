@@ -13,11 +13,20 @@ export default class TicTacToeGame {
     this.moves = [];
   }
 
+  getMoves() {
+    return this.moves;
+  }
+
   getWinner() {
     return 'X';
   }
 
   play(player: string, move: { row: number; column: number }) {
-    this.moves.push(new Move(player, move))
+    if (!this.isMoveOutsideBoard(move))
+      this.moves.push(new Move(player, move))
+  }
+
+  private isMoveOutsideBoard(move: { row: number; column: number }) {
+    return move.row > this.row || move.column > this.column || move.row < 0 || move.column < 0;
   }
 }

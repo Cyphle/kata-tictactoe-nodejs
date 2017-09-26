@@ -25,4 +25,12 @@ describe('TicTacToGame.ts', () => {
 
     expect(game.getWinner()).to.equal('X');
   });
+
+  it('should not be possible to play outside board', () => {
+    let game = new TicTacToeGame(2, 2);
+
+    game.play('X', { row: 3, column: 0 });
+
+    expect(game.getMoves()).to.have.lengthOf(0);
+  });
 });
