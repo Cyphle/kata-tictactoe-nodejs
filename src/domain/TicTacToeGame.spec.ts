@@ -75,4 +75,17 @@ describe('TicTacToGame.ts', () => {
 
     expect(game.getWinner()).to.equal('O');
   });
+
+  it('should have game won by O in column with board of 3x3 in first column', () => {
+    let game = new TicTacToeGame(2, 2);
+
+    game.play('X', { row: 1, column: 1 });
+    game.play('O', { row: 0, column: 0 });
+    game.play('X', { row: 0, column: 2 });
+    game.play('O', { row: 1, column: 0 });
+    game.play('X', { row: 2, column: 1 });
+    game.play('O', { row: 2, column: 0 });
+
+    expect(game.getWinner()).to.equal('O');
+  });
 });

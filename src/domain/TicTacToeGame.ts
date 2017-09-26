@@ -33,16 +33,26 @@ export default class TicTacToeGame {
   }
 
   private hasPlayerWon(player: string): boolean {
-    let hasWonInLine = this.hasPlayerOwnInLine(player, 0, 0);
-    return hasWonInLine;
+    let hasWonInLine = this.hasPlayerWonInLine(player, 0, 0);
+    let hasWonInColumn = this.hasPlayerWonInColumn(player, 0, 0);
+    return hasWonInLine || hasWonInColumn;
   }
 
-  private hasPlayerOwnInLine(player: string, rowNumber: number, columnNumber: number): boolean {
+  private hasPlayerWonInLine(player: string, rowNumber: number, columnNumber: number): boolean {
     let move = this.moves.find(move => move.getPlayedRow() === rowNumber && move.getPlayedColumn() === columnNumber);
     if (move && move.getPlayer() === player) {
-      return columnNumber === this.columnNumber - 1 ? true : this.hasPlayerOwnInLine(player, rowNumber, ++columnNumber);
+      return columnNumber === this.columnNumber - 1 ? true : this.hasPlayerWonInLine(player, rowNumber, ++columnNumber);
     } else {
-      return rowNumber < this.rowNumber ? this.hasPlayerOwnInLine(player, ++rowNumber, 0) : false;
+      return rowNumber < this.rowNumber ? this.hasPlayerWonInLine(player, ++rowNumber, 0) : false;
+    }
+  }
+
+  private hasPlayerWonInColumn(player: string, rowNumber: number, columnNumber: number) {
+    let move = this.moves.find(move => move.getPlayedRow() === rowNumber && move.getPlayedColumn() === columnNumber);
+    if (move && move.getPlayer() === player) {
+      return rowNumber === this.rowNumber - 1 ? true : this.hasPlayerWonInColumn(player, ++rowNumber, columnNumber);
+    } else {
+      return columnNumber < this.columnNumber ? this.hasPlayerWonInColumn(player, 0, ++columnNumber) : false;
     }
   }
 }
