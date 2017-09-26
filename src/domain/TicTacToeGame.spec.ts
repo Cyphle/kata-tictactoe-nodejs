@@ -88,4 +88,17 @@ describe('TicTacToGame.ts', () => {
 
     expect(game.getWinner()).to.equal('O');
   });
+
+  it('should have game won by O in diagonal up left to down right with board of 3x3', () => {
+    let game = new TicTacToeGame(2, 2);
+
+    game.play('X', { row: 1, column: 0 });
+    game.play('O', { row: 0, column: 0 });
+    game.play('X', { row: 0, column: 2 });
+    game.play('O', { row: 1, column: 1 });
+    game.play('X', { row: 2, column: 1 });
+    game.play('O', { row: 2, column: 2 });
+
+    expect(game.getWinner()).to.equal('O');
+  });
 });

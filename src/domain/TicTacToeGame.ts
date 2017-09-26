@@ -35,7 +35,8 @@ export default class TicTacToeGame {
   private hasPlayerWon(player: string): boolean {
     let hasWonInLine = this.hasPlayerWonInLine(player, 0, 0);
     let hasWonInColumn = this.hasPlayerWonInColumn(player, 0, 0);
-    return hasWonInLine || hasWonInColumn;
+    let hasWonInDiagonal = this.hasPlayerWonInDiagonalLeftUpToRightDown(player, 0, 0);
+    return hasWonInLine || hasWonInColumn || hasWonInDiagonal;
   }
 
   private hasPlayerWonInLine(player: string, rowNumber: number, columnNumber: number): boolean {
@@ -54,5 +55,13 @@ export default class TicTacToeGame {
     } else {
       return columnNumber < this.columnNumber ? this.hasPlayerWonInColumn(player, 0, ++columnNumber) : false;
     }
+  }
+
+  private hasPlayerWonInDiagonalLeftUpToRightDown(player: string, rowNumber: number, columnNumber: number) {
+    let move = this.moves.find(move => move.getPlayedRow() === rowNumber && move.getPlayedColumn() === columnNumber);
+    if (move && move.getPlayer() === player)
+      return rowNumber === this.rowNumber - 1 ? true : this.hasPlayerWonInColumn(player, ++rowNumber, ++columnNumber);
+    else
+      return false;
   }
 }
