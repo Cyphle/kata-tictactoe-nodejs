@@ -33,10 +33,15 @@ export default class TicTacToeGame {
   }
 
   private hasPlayerWon(player: string): boolean {
-    let hasWonInLine = this.hasPlayerWonInLine(player, 0, 0);
-    let hasWonInColumn = this.hasPlayerWonInColumn(player, 0, 0);
-    let hasWonInDiagonal = this.hasPlayerWonInDiagonalLeftUpToRightDown(player, 0, 0);
-    return hasWonInLine || hasWonInColumn || hasWonInDiagonal;
+    if (this.hasPlayerWonInLine(player, 0, 0)) return true;
+    if (this.hasPlayerWonInColumn(player, 0, 0)) return true;
+    if (this.hasPlayerWonInDiagonalLeftUpToRightDown(player, 0, 0)) return true;
+    if (this.hasPlayedWonInDiagonalLeftDownToRightUp(player, this.rowNumber - 1, 0)) return true;
+    // let hasWonInLine = this.hasPlayerWonInLine(player, 0, 0);
+    // let hasWonInColumn = this.hasPlayerWonInColumn(player, 0, 0);
+    // let hasWonInDiagonalLeftUpToRightDown = this.hasPlayerWonInDiagonalLeftUpToRightDown(player, 0, 0);
+    // let hasWonInDiagonalLeftDownToRightUp = this.hasPlayedWonInDiagonalLeftDownToRightUp(player, this.rowNumber - 1, 0);
+    // return hasWonInLine || hasWonInColumn || hasWonInDiagonalLeftUpToRightDown || hasWonInDiagonalLeftDownToRightUp;
   }
 
   private hasPlayerWonInLine(player: string, rowNumber: number, columnNumber: number): boolean {
@@ -59,8 +64,16 @@ export default class TicTacToeGame {
 
   private hasPlayerWonInDiagonalLeftUpToRightDown(player: string, rowNumber: number, columnNumber: number) {
     let move = this.moves.find(move => move.getPlayedRow() === rowNumber && move.getPlayedColumn() === columnNumber);
+    if (move && move.getPlayer() === player) {
+      return rowNumber === this.rowNumber - 1 ? true : this.hasPlayerWonInDiagonalLeftUpToRightDown(player, ++rowNumber, ++columnNumber);
+    } else
+      return false;
+  }
+
+  private hasPlayedWonInDiagonalLeftDownToRightUp(player: string, rowNumber: number, columnNumber: number) {
+    let move = this.moves.find(move => move.getPlayedRow() === rowNumber && move.getPlayedColumn() === columnNumber);
     if (move && move.getPlayer() === player)
-      return rowNumber === this.rowNumber - 1 ? true : this.hasPlayerWonInColumn(player, ++rowNumber, ++columnNumber);
+      return rowNumber === 0 ? true : this.hasPlayedWonInDiagonalLeftDownToRightUp(player, --rowNumber, ++columnNumber);
     else
       return false;
   }
